@@ -1,4 +1,3 @@
-// forum.js
 const threads = [
     {
         id:1,
@@ -9,11 +8,6 @@ const threads = [
         like:0,
         dislike:1,
         comments:[
-            {
-                author:"Jack",
-                date:Date.now(),
-                content:"UAU EU AMO BLEACH GRR"
-            }
         ]
     },
     {
@@ -25,11 +19,6 @@ const threads = [
         like:2,
         dislike:1,
         comments:[
-            {
-                author:"OTAKINHO123",
-                date:Date.now(),
-                content:"UAU EU AMO NARUTO"
-            }
         ]
     }
 ];
