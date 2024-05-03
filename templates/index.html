@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!---- HTML ÍNICIAL ---->
+<html lang="pt-br">
+<!---- Idioma do Site ---->
+
+<head>
+  <!---- Abertura do HEAD ---->
+  <meta charset="UTF-8">
+  <!--- fuso horário ---->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--- compatibilidade com navegadores ---->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--- compatibilidade com forma de celular ---->
+  <title>PlayUniGames</title>
+  <!---- Nome do Arquivo ---->
+  <link rel="icon" href="/assets/images/Imagens/favicon.png" type="image/x-png">
+  <!--Favicon-->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!--Importar o css-->
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<!---- Fechamento do HEAD ---->
+
+<body>
+  <!---- BODY ÍNICIAL ---->
+  <main></main>
+
+  <header class="header">
+    <nav class="nav container">
+        <div class="nav__data">
+            <a href="index.html" class="nav__logo">
+                <i class="bi bi-house-door"></i>PROJETO UNINOVE
+            </a>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line nav__burger"></i>
+                <i class="ri-close-line nav__close"></i>
+            </div>
+        </div>
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li><a href="/templates/index.html" class="nav__link">Pagina Inicial</a></li>
+                <li><a href="/templates/forum.html" class="nav__link">Forum</a></li>
+                <li id ='login-register'><a href="/templates/login.html" class="nav__link">Login/Registro</a></li>
+                <li id="logout-btn" style="display: none;"><a href="#" class="nav__link" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+    <div class="content">
+
+      <div class="nav-list-2">
+        <ul>
+          <li class="nav-item-2">
+            <p>SIGA NÓS</p>
+          </li>
+          <li class="nav-item-2"><a href="https://twitter.com/" class="nav-link-2"><img
+            src="/assets/images/Imagens/Link.svg "alt="logo twitter"></li></a>
+            <li class="nav-item-2"><a href="https://www.facebook.com/" class="nav-link-2"><img
+              src="/assets/images/Imagens/Link_2.svg" alt="logo facebook"></li></a>
+              <li class="nav-item-2"><a href="https://www.youtube.com/" class="nav-link-2"><img
+                src="/assets/images/Imagens/Link_3.svg" alt="logo youtube"></li></a>
+                <li class="nav-item-2"><a href="https://discord.com/" class="nav-link-2"><img
+                src="/assets/images/Imagens/Link_5.svg" alt="logo discord"></li></a>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!--Anúncio-->
+  <main class="ad">
+    <aside>
+    </aside>
+
+    <article>
+      <a href="https://tv.apple.com/"><img src="/assets/images/Imagens/anuncio.png"></a>
+    </article>
+  </main>
+  
+  <!--lista de notícias-->
+  <nav>
+    <div class="list_news">
+      <ul>
+        <li class="nw_1">
+          <main>
+            <aside>
+              <h1 class="text_img">Filme de Zelda: Quais atores devem participar?</h1>
+            </aside>
+          </main>
+          <article>
+            <a href="https://www.theenemy.com.br/webstories/zelda-filme-elenco-dos-sonhos/" target="_blank">
+              <img src="/assets/images/Imagens/f698dfab-4c70-434b-ac40-c96641ecfd81.jpeg" alt="Descrição da imagem">
+            </a>
+          </article>
+        </li>
+        <li class="nw_2">
+          <main>
+            <aside>
+              <h1 class="text_img">TGA: 2023 Indica Dois Jogos Brasileiro</h1>
+            </aside>
+          </main>
+          <article>
+            <a href="https://www.theenemy.com.br/webstories/tga-2023-dois-jogos-brasileiros/" target="_blank">
+              <img src="/assets/images/Imagens/114656d5-04ea-4c32-a80c-615f7b4933fb.png" alt="Descrição da imagem">
+            </a>
+          </article>
+        </li>
+        <li class="nw_3">
+          <main>
+            <aside>
+              <h1 class="text_img">TGA: Todos os Vencedores na História do Evento</h1>
+            </aside>
+          </main>
+          <article>
+            <a href="https://www.theenemy.com.br/playstation/tga-todos-os-vencedores-na-historia" target="_blank">
+              <img src="/assets/images/Imagens/53d7b9f4-1f15-4749-a17b-9582e6fc7c57.png" alt="Descrição da imagem">
+            </a>
+          </article>
+        </li>
+        <li class="nw_4">
+          <main>
+            <aside>
+              <h1 class="text_img">Lançamento da Semana</h1>
+            </aside>
+          </main>
+          <article>
+            <a href="https://www.theenemy.com.br/webstories/lancamentos-jogos-semana-0905/" target="_blank">
+              <img src="/assets/images/Imagens/b84be5c7-a82c-4a05-b852-16678ea1e039.jpeg" alt="Descrição da imagem">
+            </a>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- ANUNCIO MARIO -->
+
+  <!-- BANNER MARIO -->
+  <main>
+    <div class="destaque">
+      <!-- Titulo "Super Mario"
+        Eixo X:0
+        Eixo Y:0
+        Eixo W:381.39
+        Eixo H:135
+        Eixo de Rodação:0
+        Eixo de "Comer Radions" (Arrendondar as Bordas):0
+        Font: Sora
+       Tamanho:35
+       Cor:Preta
+      -->
+
+      <!-- Titulo "Como Remake"
+       Eixo X:0
+       Eixo Y:0
+       Eixo W:381.39
+       Eixo H:135
+       Eixo de Rodação:0
+       Eixo de "Comer Radions" (Arrendondar as Bordas):0
+       Font: Sora
+       Tamanho:35
+       Cor:Preta
+      -->
+
+      <article class="img_destaque">
+        <a href="HomeBannerMario.html" target="_blank">
+          <img class="banner" src="/assets/images/Imagens/BannerMario.jpg" alt="Descrição da imagem">
+        </a>
+      </article>
+      <article class="conteudo_destaque">
+        <h1>Super Mario RPG amplia a magia, mas...</h1>
+        <h2>como Remake, deixa a desejar.</h2>
+        <h4>Confira nossa primeira impressão:</h4>
+        <br>
+        <p> - Primeiros detalhes do filme de Zelda</p>
+        <p> - Lista completa de indicados do TGA 2023</p>
+        <p> - jogos para quem gostou de Sea of Stars</p>
+      </article>
+  </main>
+
+  <!---- BOTÃO PARA LINKAR COM CSS ----->
+
+  <!-- BIBLIOTECA DE JOGOS -->
+  
+  <!--SEM BIBLIO-->
+  
+  <!---- ENTRE EM CONTATO  ----->
+  <!-- ENTRE EM CONTATO 
+     * Base de de baixo 
+     Tamanho do Retangulo: 1280x192
+     Cor: (CSS:rgba(27, 27, 27, 1))
+
+     Eixo X:320
+     Eixo Y:2247
+     Eixo W:1280
+     Eixo H:466
+     Eixo de Rodação:0
+     Eixo de "Comer Radions" (Arrendondar as Bordas):50
+
+     -->
+  <main class="sobre_nos">
+    <aside>
+      
+      <!-- ENTRE EM CONTATO 
+
+        Tamanho do Retangulo: 383x32
+         Cor:Branca
+
+         Eixo X:349
+         Eixo Y:2777
+         Eixo W:385
+         Eixo H:45
+         Eixo de Rodação:0
+        -->
+
+        <h2 class="bv">SOBRE NÓS</h2>
+        
+        <!-- ENTRE EM CONTATO 
+
+         Tamanho do Retangulo: 1233x50
+         Cor:Branca
+         
+         Eixo X:348
+         Eixo Y:2339
+         Eixo W:1233
+         Eixo H:50
+         Eixo de Rodação:0
+        -->
+        
+        <p class="bv1">
+        Bem-vindo ao nosso espaço digital! Somos um grupo de estudantes da renomada Faculdade UNINOVE, unidos por nossa
+        paixão por tecnologia, inovação e comprometimento com a excelência acadêmica.
+      </p>
+
+      <!-- ENTRE EM CONTATO 
+
+          Tamanho do Retangulo: 1233x50
+          Cor:Branca
+          
+          Eixo X:348
+          Eixo Y:2412
+          Eixo W:1233
+          Eixo H:75
+          Eixo de Rodação:0
+        -->
+        
+      <p class="bv2">
+        Nosso projeto é fruto de dedicação, aprendizado e colaboração. Buscamos aplicar nossos conhecimentos adquiridos
+        em sala de aula e explorar as mais recentes tendências no campo da tecnologia, almejando criar uma experiência
+        significativa para os usuários.
+      </p>
+      
+      <!-- ENTRE EM CONTATO 
+
+          Tamanho do Retangulo: 1233x50
+          Cor:Branca
+
+          Eixo X:348
+          Eixo Y:2510
+          Eixo W:1233
+          Eixo H:25
+          Eixo de Rodação:0
+          -->
+
+      <p class="bv3">
+        Se necessitar entrar em contato, utilize o campo abaixo.
+      </p>
+    </aside>
+  </main>
+
+  <!-- ENTRE EM CONTATO 
+
+   * Base de de baixo 
+   Tamanho do Retangulo: 1280x192
+   Cor: (CSS:rgba(27, 27, 27, 1))
+   
+   Eixo X:320
+   Eixo Y:2752
+   Eixo W:1280
+   Eixo H:248
+   Eixo de Rodação:0
+   Eixo de "Comer Radions" (Arrendondar as Bordas):50
+   
+  -->
+  
+  <main class="contato">
+    <aside>
+      
+      <!-- ENTRE EM CONTATO 
+        
+        Tamanho do Retangulo: 383x32
+        Cor:Branca
+        
+        Eixo X:349
+        Eixo Y:2777
+        Eixo W:385
+        Eixo H:45
+     Eixo de Rodação:0
+     -->
+     
+     <h1 class="titulo_contato">ENTRE EM CONTATO</h1>
+     <!-- ENTRE EM CONTATO 
+      
+      *Base Branca do "Nome:"
+
+      Tamanho do Retangulo: 383x32
+     Cor:Branca
+     
+     Eixo X:348
+     Eixo Y:2834
+     Eixo W:383
+     Eixo H:32
+     Eixo de Rodação:0
+     Eixo de "Comer Radions" (Arrendondar as Bordas):50
+     -->
+
+      <form class="name"> <input type="text" placeholder="Nome"> </form>
+
+      <!-- ENTRE EM CONTATO 
+        
+     *Base Branca do "E-Mail:"
+
+     Tamanho do Retangulo: 383x32
+     Cor:Branca
+
+     Eixo X:348
+     Eixo Y:2834
+     Eixo W:383
+     Eixo H:32
+     Eixo de Rodação:0
+     Eixo de "Comer Radions" (Arrendondar as Bordas):50
+    -->
+    
+    <form class="email"> <input type="E-mail" placeholder="Email"> </form>
+    
+      <!-- ENTRE EM CONTATO 
+        
+        *Base Branca do "Observação:"
+        
+     Tamanho do Retangulo: 647x193
+     Cor:Branca
+     
+     Eixo X:881
+     Eixo Y:2783
+     Eixo W:647
+     Eixo H:1
+     Eixo de Rodação:193
+     Eixo de Rodação:0
+     Eixo de "Comer Radions" (Arrendondar as Bordas):50
+    -->
+    
+      <form> <input type="submit" placeholder="Enviar"></form>
+    </aside>
+
+    <aside>
+      <textarea class="obs" placeholder="Observações" rows="6"></textarea>
+    </aside>
+    
+    <!-- ENTRE EM CONTATO 
+
+      *Base Branca do "Enviar"
+      
+   Tamanho do Retangulo: 254x27
+   Cor:Branca
+   
+   Eixo X:407
+   Eixo Y:2920
+   Eixo W:254
+   Eixo H:27
+   Eixo de Rodação:0
+   Eixo de "Comer Radions" (Arrendondar as Bordas):80
+   -->
+  </main>
+
+  <!-- RODAPÉ EM BAIXO 
+   Tamanho do Retangulo: 1280x192
+   Cor: (CSS:rgba(27, 27, 27, 1))
+
+   Eixo X:0
+   Eixo Y:3029
+   Eixo W:1280
+   Eixo H:192
+   Eixo de Rodação:0
+   Eixo de "Comer Radions" (Arrendondar as Bordas):20
+   -->
+
+   <!----- CORTE DO RODAPÉ ----->
+
+   <main class="dmca">
+    <aside>
+      <p>
+        © 2024 PROJETO REALIZADO NA UNINOVE - ALUNOS ADS
+      </p>
+
+      <!-- ENTRE EM CONTATO 
+        Text!
+        Fonte: Roboto
+       Cor: Branca
+       Tamanho da Fonte:16
+       
+       Tamanho:436x19
+       
+       Eixo X:721
+       Eixo Y:3068
+       Eixo W:351
+       Eixo H:19
+       Eixo de Rodação:0
+       -->
+       <p>
+        Projeto e Modelagem de Sistemas de Software - Profº Adriano Michelotti
+      </p>
+    </aside>
+  </main>
+</div>
+<script src="/assets/js/header.js"></script>
+<script src="/assets/js/login.js"></script>
+
+</body>
+<!---- BODY FINAL ---->
+
+</html>
+<!---- HTML FINAL ---->

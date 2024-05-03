@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/thread.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="index.html" class="nav__logo">
+                    <i class="bi bi-house-door"></i>PROJETO UNINOVE
+                </a>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__burger"></i>
+                    <i class="ri-close-line nav__close"></i>
+                </div>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/templates/index.html" class="nav__link">Pagina Inicial</a></li>
+                    <li><a href="/templates/forum.html" class="nav__link">Forum</a></li>
+                    <li id ='login-register'><a href="/templates/login.html" class="nav__link">Login/Registro</a></li>
+                    <li id="logout-btn" style="display: none;"><a href="#" class="nav__link" onclick="logout()">Logout</a></li>    
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="top-bar">
+            <h1>
+                <i class="bi bi-chat-right-text"></i> 
+                <a href="/templates/forum.html">
+                    My Forum
+                </a>
+            </h1>
+        </div>
+        <div class="main">
+            <div id="header-comments">
+                <h4 class="title">
+                </h4>
+                <div class="bottom">
+                    <p class="comment-ts">
+                    </p>
+                    <p class="comment-count" id="comment-count">
+                    </p>
+                </div>
+            </div>
+            <div class="textarea-container">
+                <textarea id="textArea"></textarea>
+            </div>
+            <button id="submit-button">
+                Submit
+            </button>
+
+            <div class="comments">
+                <!-- Comentários serão adicionados aqui -->
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/assets/js/threads.js"></script>
+<script src="/assets/js/data.js"></script>
+<script src="/assets/js/header.js"></script>
+<script src="/assets/js/login.js"></script>
+
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id'); 
+    console.log("ID da URL:", id);
+    var thread = threads.find(thread => thread.id == id);
+    console.log("Thread encontrada:", thread);
+    const header = document.querySelector('#header-comments');
+    var headerHtml = `
+    <h4 class="title">
+        <i class="bi bi-globe2"></i>${thread.title} 
+    </br>
+    <i class="bi bi-person-circle"></i> Autor: ${thread.author}
+    </h4>
+    <div class="bottom">
+        <p class="comment-ts">
+            <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
+        </p>
+    </div>`;
+    header.insertAdjacentHTML('beforeend', headerHtml);
+
+    // Chamada da função loadComments para carregar os comentários
+    loadComments(id);
+
+    var btn = document.getElementById('submit-button');
+    btn.addEventListener('click', function(event) {
+        event.preventDefault();
+        var textarea = document.getElementById('textArea');
+        var commentContent = textarea.value.trim();
+        if (commentContent !== '') {
+            var comment = {
+                author: "Undefined", // Defina o autor do comentário aqui
+                content: commentContent,
+                date: Date.now()
+            };
+            // Adicionar o comentário à thread
+            thread.comments.push(comment);
+            // Salvar o comentário localmente
+            addComment(thread, comment);
+            textarea.value = '';
+            // Atualizar o contador de comentários
+            var commentCount = document.getElementById('comment-count');
+            commentCount.innerHTML = `<i class="bi bi-chat-dots"></i>${thread.comments.length} comments`;
+        }
+    });
+
+    if (!userLogado) {
+        var submitButton = document.getElementById('submit-button');
+        submitButton.disabled = true;
+        submitButton.classList.add('cursor-not-allowed');
+        var textarea = document.getElementById('textArea');
+        textarea.disabled = true;
+        textarea.classList.add('cursor-not-allowed');
+    }
+</script>
+</html>
