@@ -51,6 +51,7 @@
                     </p>
                 </div>
             </div>
+            <div id="thread-text"></div> <!-- Adicionado para exibir o texto da thread -->
             <div class="textarea-container">
                 <textarea id="textArea"></textarea>
             </div>
@@ -86,13 +87,19 @@
         <p class="comment-ts">
             <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
         </p>
+        
     </div>`;
     header.insertAdjacentHTML('beforeend', headerHtml);
+
+    // Adicione o texto da thread ao elemento thread-text
+    const threadTextContainer = document.querySelector('#thread-text');
+    threadTextContainer.textContent = thread.text;
 
     // Chamada da função loadComments para carregar os comentários
     loadComments(id);
 
     var btn = document.getElementById('submit-button');
+    // Adiciona um novo comentário à thread
     btn.addEventListener('click', function(event) {
         event.preventDefault();
         var textarea = document.getElementById('textArea');
@@ -109,10 +116,10 @@
             addComment(thread, comment);
             textarea.value = '';
             // Atualizar o contador de comentários
-            var commentCount = document.getElementById('comment-count');
-            commentCount.innerHTML = `<i class="bi bi-chat-dots"></i>${thread.comments.length} comments`;
+            loadComments(id); // Chama loadComments após a adição de um novo comentário
         }
     });
+
 
     if (!userLogado) {
         var submitButton = document.getElementById('submit-button');
@@ -122,5 +129,6 @@
         textarea.disabled = true;
         textarea.classList.add('cursor-not-allowed');
     }
+    
 </script>
 </html>

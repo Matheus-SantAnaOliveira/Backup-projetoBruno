@@ -142,6 +142,7 @@ function logout() {
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userPassword');
     localStorage.removeItem('userName');
+    localStorage.clear();
     // Redireciona para a página de login
     window.location.href = "/templates/login.html";
 }

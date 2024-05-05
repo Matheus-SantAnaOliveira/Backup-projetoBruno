@@ -9,6 +9,7 @@
 body{
     margin: 10px 60px;
     padding: 0;
+    background-image: linear-gradient(rgba(109, 104, 104, 0.8), rgba(109, 104, 104, 0.8)), url('/assets/images/Imagens/194874940_162560135835674_5284216365015072105_n.jpg');
 }
 h4{
     color: #333;
@@ -40,7 +41,7 @@ margin: 5px 0;
     padding: 0 5px;
 }
 .main{
-    background-color: #F6F6EF;
+    background-color: rgba(255, 255, 255, 0.76);
     padding: 10px 15px;
 }
 h1,h4,ol{
