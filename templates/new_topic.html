@@ -4,12 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="/assets/js/data.js"></script>
     <title>Novo Tópico</title>
 </head>
 <body>
     <header class="header">
-        <!-- Header code here -->
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="index.html" class="nav__logo">
+                    <i class="bi bi-house-door"></i>PROJETO UNINOVE
+                </a>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__burger"></i>
+                    <i class="ri-close-line nav__close"></i>
+                </div>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/templates/index.html" class="nav__link">Pagina Inicial</a></li>
+                    <li><a href="/templates/forum.html" class="nav__link">Forum</a></li>
+                    <li id ='login-register'><a href="/templates/login.html" class="nav__link">Login/Registro</a></li>
+                    <li id="logout-btn" style="display: none;"><a href="#" class="nav__link" onclick="logout()">Logout</a></li>    
+                </ul>
+            </div>
+        </nav>
     </header>
+
 
     <!-- MAIN CONTENT -->
   <div class="main-content">
@@ -30,44 +52,5 @@
     <script src="/assets/js/login.js"></script>
     <script src="/assets/js/new_topic.js"></script>
     <script src="/assets/js/data.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var newTopicForm = document.getElementById('new-topic-form');
-            if (newTopicForm) {
-                newTopicForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    var title = document.getElementById('topic-title').value;
-                    var content = document.getElementById('topic-content').value;
-                    var author = localStorage.getItem('userName'); // Obtendo o autor do usuário logado
-                    var threads = JSON.parse(localStorage.getItem('threads')) || []; // Recuperando os tópicos existentes do localStorage
-
-                    // Gerando um ID único para o novo tópico
-                    var id = threads.length + 1;
-
-                    var newTopic = {
-                        id: id,
-                        title: title,
-                        author: author,
-                        date: Date.now(),
-                        content: content,
-                        like: 0,
-                        dislike: 0,
-                        comments: []
-                    };
-
-                    // Adicionando o novo tópico à lista de tópicos
-                    threads.push(newTopic);
-
-                    // Salvando a lista atualizada de tópicos no localStorage
-                    localStorage.setItem('threads', JSON.stringify(threads));
-
-                    // Redirecionando para a página do fórum após a submissão
-                    window.location.href = '/templates/forum.html';
-                });
-            } else {
-                console.error("Formulário de novo tópico não encontrado.");
-            }
-        });
-    </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var container = document.querySelector('ol');
+    var threads = JSON.parse(localStorage.getItem('threads')) || []; // Recuperando os tópicos existentes do localStorage
+    var container = document.querySelector('#threads-list');
     if (container) {
         // O elemento foi encontrado, então podemos continuar
         for(let thread of threads) {
@@ -8,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="/templates/thread.html?id=${thread.id}">
                     <h4>
                         ${thread.title}
-                        ${console.log(thread.title)}
                     </h4>
                     <div class="bottom">
                         <p class="timestamp">
@@ -46,5 +46,3 @@ function getCommentCount(threadId) {
     }
     return count;
 }
-
-

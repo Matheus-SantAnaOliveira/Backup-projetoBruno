@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos</title>
+
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/listgames.css">
+    <link rel="stylesheet" href="/assets/css/modal.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__data">
+                <a href="index.html" class="nav__logo">
+                    <i class="bi bi-house-door"></i>PROJETO UNINOVE
+                </a>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line nav__burger"></i>
+                    <i class="ri-close-line nav__close"></i>
+                </div>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li><a href="/templates/index.html" class="nav__link">Pagina Inicial</a></li>
+                    <li><a href="/templates/forum.html" class="nav__link">Forum</a></li>
+                    <li id ='login-register'><a href="/templates/login.html" class="nav__link">Login/Registro</a></li>
+                    <li id="logout-btn" style="display: none;"><a href="#" class="nav__link" onclick="logout()">Logout</a></li>    
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="container-items">
+            <div>
+            <ul id='ul1'>
+                <li>
+                    <div>
+                        <img src="https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/games/fob/1280/V.jpg">
+                    </div>
+                    <div class="game-info">
+                        <h2>GTA 5</h2>
+                        <h3>R$ 250,00</h3>
+                    </div>
+                    <span class="icon-remove">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <div>
+                        <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png">
+                    </div>
+                    <div class="game-info">
+                        <h2>The Last Of US Part II</h2>
+                        <h3>R$ 250,00</h3>
+                    </div>
+                    <span class="icon-remove">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+    <footer>
+        <div>
+            <button id="btnAdd">
+                <span class="material-symbols-outlined">
+                    add_circle
+                </span>
+            </button>
+    </footer>
+
+    <!-- Modais -->
+    <div class="modal" data-modal="adicionar-jogo">
+        <button class="btn-fechar-modal">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+        <form>
+            <div class="frm-linha">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome">
+            </div>
+            <div class="frm-linha">
+                <label for="img">Foto</label>
+                <input type="text" id="img">
+            </div>
+            <div class="frm-linha">
+                <label for="preco">Desc</label>
+                <input type="text" id="desc">
+            </div>
+            <div class="frm-linha">
+                <button id="btnSalvar">Salvar</button>
+            </div>
+        </form>
+    </div>
+    
+    
+    <div class="modal" data-modal="upload-jogos">
+        <button class="btn-fechar-modal">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+        <form>
+            <div class="frm-linha">
+                <label for="arquivo">Selecione o arquivo</label>
+                <input type="file" style="display: none;" id="arquivo">
+            </div>
+        </form>
+    </div>
+    
+    <div class="modal" data-modal="download-jogos">
+        <button class="btn-fechar-modal">
+            <span class="material-symbols-outlined">
+                close
+            </span>
+        </button>
+        <form>
+            <div class="frm-linha">
+                <label for="nomeArquivo">Nome do arquivo</label>
+                <input type="text" id="nomeArquivo">
+            </div>
+            <div class="frm-linha">
+                <button id="btnFazerDownload">Download</button>
+            </div>
+        </form>
+    </div>
+    <div class="background-modal"></div>
+</div>
+    <script>
+        let btnAdd = document.querySelector('#btnAdd');
+        let btnImportar = document.querySelector('#btnImportar');
+        let btnDownload = document.querySelector('#btnDownload');
+        let btnFazerDownload = document.querySelector('#btnFazerDownload');
+        
+        let jogos  = [
+        {
+            img:'https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/games/fob/1280/V.jpg',
+            nome:'GTA V',
+            desc: "Simulador de jogo de assalto"
+        },
+        {
+            img:'https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png',
+            nome:'The Last Of Us PT II',
+            desc: 'Se passa em mundo pós apocaliliptoco'
+        }
+    ];
+
+        renderGames();
+        function renderGames(){
+            document.querySelector('#ul1').innerHTML = '';
+            jogos.forEach((jogo, indice) => {
+                let li = document.createElement('li');
+                li.setAttribute('data-index', indice);
+                li.addEventListener('dblclick', function() {
+                    console.log('todo open edit')
+                });
+
+                li.innerHTML = `
+                    <div>
+                        <img src="${jogo.img}">
+                    </div>
+                    <div class="game-info">
+                        <h2>${jogo.nome}</h2>
+                        <h3>${jogo.desc}</h3>
+                    </div>
+                    <span class="icon-remove" data-index="${indice}">
+                        <span class="material-symbols-outlined">
+                            delete
+                        </span>
+                    </span>
+                `;
+                document.querySelector('#ul1').appendChild(li);
+            });
+            if(jogos.length < 1){
+                document.querySelector('#ul1').innerHTML = `
+                <div class="none-items">
+                    <li>Nenhum jogo cadastrado</li>
+                </div>
+                `;
+                
+            }
+
+            document.querySelectorAll('.icon-remove').forEach((x) => {
+                x.removeEventListener('click', deletar);
+                x.addEventListener('click', deletar);
+            });
+        }
+
+        function deletar(e){
+            if(window.confirm('Deseja realmente excluir?')){
+                let index = e.target.parentElement.getAttribute('data-index');
+                if(index){
+                    console.log(index);
+                    jogos.splice(index, 1);
+                    renderGames();
+                }
+            }
+        }
+       
+        function fecharModalAddJogo(){
+            document.querySelector('[data-modal="adicionar-jogo"]').classList.remove('abrir');
+            document.querySelector('.background-modal').classList.remove('abrir');
+        }
+        document.querySelectorAll('.btn-fechar-modal').forEach(btn => {
+            btn.addEventListener('click', fecharModalAddJogo);
+        });
+        btnAdd.addEventListener('click', () => {
+            document.querySelector('[data-modal="adicionar-jogo"]')
+                    .classList.toggle('abrir')
+            document.querySelector('.background-modal')
+                    .classList.toggle('abrir')
+        });
+
+        document.querySelector('#btnSalvar').addEventListener('click', (e) => {
+            e.preventDefault();
+            let nome = document.querySelector('#nome').value;
+            let img = document.querySelector('#img').value;
+            let desc = document.querySelector('#desc').value;
+            const jogo = {
+                img: document.querySelector('#img').value || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoE0zLabFrxYyaVJ-BZsuUdFNCo2iOTnGKyVFfGr_AYQ&s',
+                nome: document.querySelector('#nome').value,
+                desc: document.querySelector("#desc").value
+            }
+            if (!nome || !desc){
+                alert('Preencha todos os campos');
+                return;
+            }
+            jogos.push(jogo);
+            renderGames();
+            fecharModalAddJogo();
+       
+                });
+        btnImportar.addEventListener('click', () => {
+            document.querySelector('[data-modal="upload-jogos"]').
+                    classList.toggle('abrir')
+            document.querySelector('.background-modal').classList
+                    .toggle('abrir')
+        });
+
+        btnDownload.addEventListener('click', () => {
+            document.querySelector('[data-modal="download-jogos"]').
+                    classList.toggle('abrir')
+            document.querySelector('.background-modal').classList
+                    .toggle('abrir')
+        });
+
+        document.querySelector('.btn-fechar-modal').addEventListener('click', () => {
+            document.querySelector('.modal.abrir').classList.toggle('abrir')
+            document.querySelector('.background-modal').classList.toggle('abrir')
+        });
+
+btnFazerDownload.addEventListener('click', (e) => {
+    e.preventDefault();
+    const NomeArquivo = document.querySelector("#NomeArquivo").value;
+    if(!document.querySelector("NomeArquivo").value){
+        alert("Informe o nome do arquivo");
+        return;
+    }
+    download()(jogos, `${NomeArquivo}.json`);
+});
+const download = function(){
+    const a = document.createElement("a");
+    a.style = "display: none";
+    document.appendChild(a);
+    return function (data, fileName){
+        const json = JSON.stringify(data);
+        const blob = new Blob([json], {type: "octet/stream"});
+        const url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+}
+    </script>
+    <script src="/assets/js/header.js"></script>
+</body>
+</html>
