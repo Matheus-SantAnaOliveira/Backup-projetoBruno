@@ -1,4 +1,3 @@
-// Código para armazenar novos tópicos no localStorage
 document.addEventListener('DOMContentLoaded', function() {
     var newTopicForm = document.getElementById('new-topic-form');
     if (newTopicForm) {

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread Details</title>
+    <!-- Seus estilos CSS -->
     <link rel="stylesheet" href="/assets/css/thread.css">
     <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-    <title>Document</title>
 </head>
 <body>
     <header class="header">
@@ -43,15 +44,18 @@
         <div class="main">
             <div id="header-comments">
                 <h4 class="title">
+                    <!-- Aqui serão inseridos os detalhes do tópico -->
                 </h4>
                 <div class="bottom">
                     <p class="comment-ts">
+                        <!-- Aqui será inserida a data da thread -->
                     </p>
                     <p class="comment-count" id="comment-count">
+                        <!-- Aqui será inserida a contagem de comentários -->
                     </p>
                 </div>
             </div>
-            <div id="thread-text"></div> <!-- Adicionado para exibir o texto da thread -->
+            <div id="thread-text"></div> <!-- Exibirá o texto da thread -->
             <div class="textarea-container">
                 <textarea id="textArea"></textarea>
             </div>
@@ -64,71 +68,74 @@
             </div>
         </div>
     </div>
-</body>
-<script src="/assets/js/threads.js"></script>
-<script src="/assets/js/data.js"></script>
-<script src="/assets/js/header.js"></script>
-<script src="/assets/js/login.js"></script>
-
-<script>
-    var params = new URLSearchParams(window.location.search);
-    var id = params.get('id'); 
-    console.log("ID da URL:", id);
-    var thread = threads.find(thread => thread.id == id);
-    console.log("Thread encontrada:", thread);
-    const header = document.querySelector('#header-comments');
-    var headerHtml = `
-    <h4 class="title">
-        <i class="bi bi-globe2"></i>${thread.title} 
-    </br>
-    <i class="bi bi-person-circle"></i> Autor: ${thread.author}
-    </h4>
-    <div class="bottom">
-        <p class="comment-ts">
-            <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
-        </p>
-        
-    </div>`;
-    header.insertAdjacentHTML('beforeend', headerHtml);
-
-    // Adicione o texto da thread ao elemento thread-text
-    const threadTextContainer = document.querySelector('#thread-text');
-    threadTextContainer.textContent = thread.text;
-
-    // Chamada da função loadComments para carregar os comentários
-    loadComments(id);
-
-    var btn = document.getElementById('submit-button');
-    // Adiciona um novo comentário à thread
-    btn.addEventListener('click', function(event) {
-        event.preventDefault();
-        var textarea = document.getElementById('textArea');
-        var commentContent = textarea.value.trim();
-        if (commentContent !== '') {
-            var comment = {
-                author: "Undefined", // Defina o autor do comentário aqui
-                content: commentContent,
-                date: Date.now()
-            };
-            // Adicionar o comentário à thread
-            thread.comments.push(comment);
-            // Salvar o comentário localmente
-            addComment(thread, comment);
-            textarea.value = '';
-            // Atualizar o contador de comentários
-            loadComments(id); // Chama loadComments após a adição de um novo comentário
-        }
-    });
-
-
-    if (!userLogado) {
-        var submitButton = document.getElementById('submit-button');
-        submitButton.disabled = true;
-        submitButton.classList.add('cursor-not-allowed');
-        var textarea = document.getElementById('textArea');
-        textarea.disabled = true;
-        textarea.classList.add('cursor-not-allowed');
-    }
+    <script src="/assets/js/threads.js"></script>
+    <script src="/assets/js/header.js"></script>
+    <script src="/assets/js/login.js"></script>
+    <script src="/assets/js/new_topic.js"></script>
+    <script>
+        // Recuperar threads do localStorage
+        var threads = JSON.parse(localStorage.getItem('threads')) || [];
     
-</script>
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id'); 
+        console.log("ID da URL:", id);
+        var thread = threads.find(thread => thread.id == id);
+        console.log("Thread encontrada:", thread);
+        const header = document.querySelector('#header-comments');
+        if (thread) {
+            var headerHtml = `
+                <h4 class="title">
+                    <i class="bi bi-globe2"></i>${thread.title} 
+                    </br>
+                    <i class="bi bi-person-circle"></i> Autor: ${thread.author}
+                </h4>
+                <div class="bottom">
+                    <p class="comment-ts">
+                        <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
+                    </p>
+                </div>`;
+            header.insertAdjacentHTML('beforeend', headerHtml);
+    
+            // Adicione o texto da thread ao elemento thread-text
+            const threadTextContainer = document.querySelector('#thread-text');
+            threadTextContainer.textContent = thread.text;
+    
+            // Chamada da função loadComments para carregar os comentários
+            loadComments(id);
+        } else {
+            console.error("Thread não encontrada.");
+        }
+    
+        var btn = document.getElementById('submit-button');
+        // Adiciona um novo comentário à thread
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            var textarea = document.getElementById('textArea');
+            var commentContent = textarea.value.trim();
+            if (commentContent !== '') {
+                var comment = {
+                    author: "Undefined", // Defina o autor do comentário aqui
+                    content: commentContent,
+                    date: Date.now()
+                };
+                // Adicionar o comentário à thread
+                thread.comments.push(comment);
+                // Salvar o comentário localmente
+                addComment(thread, comment);
+                textarea.value = '';
+                // Atualizar o contador de comentários
+                loadComments(id); // Chama loadComments após a adição de um novo comentário
+            }
+        });
+    
+        if (!userLogado) {
+            var submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            submitButton.classList.add('cursor-not-allowed');
+            var textarea = document.getElementById('textArea');
+            textarea.disabled = true;
+            textarea.classList.add('cursor-not-allowed');
+        }
+    </script>
+</body>
 </html>
