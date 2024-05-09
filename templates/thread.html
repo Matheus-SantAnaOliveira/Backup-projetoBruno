@@ -24,7 +24,7 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li><a href="/templates/index.html" class="nav__link">Pagina Inicial</a></li>
-                    <li><a href="/templates/forum.html" class="nav__link">Forum</a></li>
+                    <li><a href="/templates/gamebiblio.html" class="nav__link">Biblioteca</a></li>
                     <li id ='login-register'><a href="/templates/login.html" class="nav__link">Login/Registro</a></li>
                     <li id="logout-btn" style="display: none;"><a href="#" class="nav__link" onclick="logout()">Logout</a></li>    
                 </ul>
@@ -69,66 +69,66 @@
 <script src="/assets/js/data.js"></script>
 <script src="/assets/js/header.js"></script>
 <script src="/assets/js/login.js"></script>
-
 <script>
     var params = new URLSearchParams(window.location.search);
     var id = params.get('id'); 
     console.log("ID da URL:", id);
     var thread = threads.find(thread => thread.id == id);
     console.log("Thread encontrada:", thread);
-    const header = document.querySelector('#header-comments');
-    var headerHtml = `
-    <h4 class="title">
-        <i class="bi bi-globe2"></i>${thread.title} 
-    </br>
-    <i class="bi bi-person-circle"></i> Autor: ${thread.author}
-    </h4>
-    <div class="bottom">
-        <p class="comment-ts">
-            <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
-        </p>
-        
-    </div>`;
-    header.insertAdjacentHTML('beforeend', headerHtml);
+    if(thread) {
+        const header = document.querySelector('#header-comments');
+        var headerHtml = `
+        <h4 class="title">
+            <i class="bi bi-globe2"></i>${thread.title} 
+        </br>
+        <i class="bi bi-person-circle"></i> Autor: ${thread.author}
+        </h4>
+        <div class="bottom">
+            <p class="comment-ts">
+                <i class="bi bi-calendar-week"></i> ${new Date(thread.date).toLocaleString()} 
+            </p>
+        </div>`;
+        header.insertAdjacentHTML('beforeend', headerHtml);
 
-    // Adicione o texto da thread ao elemento thread-text
-    const threadTextContainer = document.querySelector('#thread-text');
-    threadTextContainer.textContent = thread.text;
+        // Adicione o texto da thread ao elemento thread-text
+        const threadTextContainer = document.querySelector('#thread-text');
+        threadTextContainer.textContent = thread.text;
 
-    // Chamada da função loadComments para carregar os comentários
-    loadComments(id);
+        // Chamada da função loadComments para carregar os comentários
+        loadComments(id);
 
-    var btn = document.getElementById('submit-button');
-    // Adiciona um novo comentário à thread
-    btn.addEventListener('click', function(event) {
-        event.preventDefault();
-        var textarea = document.getElementById('textArea');
-        var commentContent = textarea.value.trim();
-        if (commentContent !== '') {
-            var comment = {
-                author: "Undefined", // Defina o autor do comentário aqui
-                content: commentContent,
-                date: Date.now()
-            };
-            // Adicionar o comentário à thread
-            thread.comments.push(comment);
-            // Salvar o comentário localmente
-            addComment(thread, comment);
-            textarea.value = '';
-            // Atualizar o contador de comentários
-            loadComments(id); // Chama loadComments após a adição de um novo comentário
+        var btn = document.getElementById('submit-button');
+        // Adiciona um novo comentário à thread
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            var textarea = document.getElementById('textArea');
+            var commentContent = textarea.value.trim();
+            if (commentContent !== '') {
+                var comment = {
+                    author: "Undefined", // Defina o autor do comentário aqui
+                    content: commentContent,
+                    date: Date.now()
+                };
+                // Adicionar o comentário à thread
+                thread.comments.push(comment);
+                // Salvar o comentário localmente
+                addComment(thread, comment);
+                textarea.value = '';
+                // Atualizar o contador de comentários
+                loadComments(id); // Chama loadComments após a adição de um novo comentário
+            }
+        });
+
+        if (!userLogado) {
+            var submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            submitButton.classList.add('cursor-not-allowed');
+            var textarea = document.getElementById('textArea');
+            textarea.disabled = true;
+            textarea.classList.add('cursor-not-allowed');
         }
-    });
-
-
-    if (!userLogado) {
-        var submitButton = document.getElementById('submit-button');
-        submitButton.disabled = true;
-        submitButton.classList.add('cursor-not-allowed');
-        var textarea = document.getElementById('textArea');
-        textarea.disabled = true;
-        textarea.classList.add('cursor-not-allowed');
+    } else {
+        console.error("Thread não encontrada com o ID:", id);
     }
-    
 </script>
 </html>

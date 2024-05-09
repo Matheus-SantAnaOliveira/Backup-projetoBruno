@@ -1,8 +1,11 @@
+// Código para armazenar novos tópicos no localStorage
 document.addEventListener('DOMContentLoaded', function() {
     var newTopicForm = document.getElementById('new-topic-form');
     if (newTopicForm) {
         newTopicForm.addEventListener('submit', function(event) {
             event.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get('id'); // Obtendo o ID do jogo da URL
             var title = document.getElementById('topic-title').value;
             var content = document.getElementById('topic-content').value;
             var author = localStorage.getItem('userName'); // Obtendo o autor do usuário logado
@@ -13,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var newTopic = {
                 id: id,
+                gameId: gameId, // Adicionando o ID do jogo ao novo tópico
                 title: title,
                 author: author,
                 date: Date.now(),
@@ -29,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('threads', JSON.stringify(threads));
 
             // Redirecionando para a página do fórum após a submissão
-            window.location.href = '/templates/forum.html';
+            window.location.href = '/templates/forum.html?id=' + gameId;
         });
     } else {
         console.error("Formulário de novo tópico não encontrado.");
