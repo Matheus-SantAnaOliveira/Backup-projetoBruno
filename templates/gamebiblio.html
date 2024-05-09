@@ -43,37 +43,11 @@
     <div class="main-content">
         <div class="container-items">
             <div>
-            <ul id='ul1'>
-                <li>
-                    <div>
-                        <img src="https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/games/fob/1280/V.jpg">
-                    </div>
-                    <div class="game-info">
-                        <h2>GTA 5</h2>
-                        <h3>R$ 250,00</h3>
-                    </div>
-                    <span class="icon-remove">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </span>
-                </li>
-                <li>
-                    <div>
-                        <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png">
-                    </div>
-                    <div class="game-info">
-                        <h2>The Last Of US Part II</h2>
-                        <h3>R$ 250,00</h3>
-                    </div>
-                    <span class="icon-remove">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </span>
-                </li>
-            </ul>
+                <ul id='ul1'>
+                </ul>
+            </div>
         </div>
+    </div>
 
     <footer>
         <div>
@@ -82,6 +56,7 @@
                     add_circle
                 </span>
             </button>
+        </div>
     </footer>
 
     <!-- Modais -->
@@ -110,58 +85,12 @@
         </form>
     </div>
     
-    
-    <div class="modal" data-modal="upload-jogos">
-        <button class="btn-fechar-modal">
-            <span class="material-symbols-outlined">
-                close
-            </span>
-        </button>
-        <form>
-            <div class="frm-linha">
-                <label for="arquivo">Selecione o arquivo</label>
-                <input type="file" style="display: none;" id="arquivo">
-            </div>
-        </form>
-    </div>
-    
-    <div class="modal" data-modal="download-jogos">
-        <button class="btn-fechar-modal">
-            <span class="material-symbols-outlined">
-                close
-            </span>
-        </button>
-        <form>
-            <div class="frm-linha">
-                <label for="nomeArquivo">Nome do arquivo</label>
-                <input type="text" id="nomeArquivo">
-            </div>
-            <div class="frm-linha">
-                <button id="btnFazerDownload">Download</button>
-            </div>
-        </form>
-    </div>
     <div class="background-modal"></div>
-</div>
+
     <script>
         let btnAdd = document.querySelector('#btnAdd');
-        let btnImportar = document.querySelector('#btnImportar');
-        let btnDownload = document.querySelector('#btnDownload');
-        let btnFazerDownload = document.querySelector('#btnFazerDownload');
-        
-        let jogos  = [
-        {
-            img:'https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/games/fob/1280/V.jpg',
-            nome:'GTA V',
-            desc: "Simulador de jogo de assalto"
-        },
-        {
-            img:'https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png',
-            nome:'The Last Of Us PT II',
-            desc: 'Se passa em mundo pós apocaliliptoco'
-        }
-    ];
 
+        let jogos  = JSON.parse(localStorage.getItem('games')) || [];
         renderGames();
         function renderGames(){
             document.querySelector('#ul1').innerHTML = '';
@@ -169,16 +98,18 @@
                 let li = document.createElement('li');
                 li.setAttribute('data-index', indice);
                 li.addEventListener('dblclick', function() {
-                    console.log('todo open edit')
+                    window.location.href = `forum.html?id=${indice}`; // Redireciona para a página do fórum com o ID do jogo
                 });
 
                 li.innerHTML = `
-                    <div>
-                        <img src="${jogo.img}">
-                    </div>
-                    <div class="game-info">
-                        <h2>${jogo.nome}</h2>
-                        <h3>${jogo.desc}</h3>
+                    <div class="container-items" onclick="goToForum(${indice})">
+                        <div>
+                            <img src="${jogo.img}">
+                        </div>
+                        <div class="game-info">
+                            <h2>${jogo.nome}</h2>
+                            <h3>${jogo.desc}</h3>
+                        </div>
                     </div>
                     <span class="icon-remove" data-index="${indice}">
                         <span class="material-symbols-outlined">
@@ -209,6 +140,7 @@
                 if(index){
                     console.log(index);
                     jogos.splice(index, 1);
+                    localStorage.setItem('games', JSON.stringify(jogos)); // Atualiza a lista de jogos no armazenamento local
                     renderGames();
                 }
             }
@@ -243,52 +175,18 @@
                 return;
             }
             jogos.push(jogo);
+            localStorage.setItem('games', JSON.stringify(jogos)); // Salva o jogo no armazenamento local
             renderGames();
             fecharModalAddJogo();
-       
-                });
-        btnImportar.addEventListener('click', () => {
-            document.querySelector('[data-modal="upload-jogos"]').
-                    classList.toggle('abrir')
-            document.querySelector('.background-modal').classList
-                    .toggle('abrir')
+            // Limpar os campos do modal após enviar
+            document.querySelector('#nome').value = '';
+            document.querySelector('#img').value = '';
+            document.querySelector('#desc').value = '';
         });
 
-        btnDownload.addEventListener('click', () => {
-            document.querySelector('[data-modal="download-jogos"]').
-                    classList.toggle('abrir')
-            document.querySelector('.background-modal').classList
-                    .toggle('abrir')
-        });
-
-        document.querySelector('.btn-fechar-modal').addEventListener('click', () => {
-            document.querySelector('.modal.abrir').classList.toggle('abrir')
-            document.querySelector('.background-modal').classList.toggle('abrir')
-        });
-
-btnFazerDownload.addEventListener('click', (e) => {
-    e.preventDefault();
-    const NomeArquivo = document.querySelector("#NomeArquivo").value;
-    if(!document.querySelector("NomeArquivo").value){
-        alert("Informe o nome do arquivo");
-        return;
-    }
-    download()(jogos, `${NomeArquivo}.json`);
-});
-const download = function(){
-    const a = document.createElement("a");
-    a.style = "display: none";
-    document.appendChild(a);
-    return function (data, fileName){
-        const json = JSON.stringify(data);
-        const blob = new Blob([json], {type: "octet/stream"});
-        const url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-    };
-}
+        function goToForum(index) {
+            window.location.href = `forum.html?id=${index}`; // Redireciona para a página do fórum com o ID do jogo
+        }
     </script>
     <script src="/assets/js/header.js"></script>
 </body>

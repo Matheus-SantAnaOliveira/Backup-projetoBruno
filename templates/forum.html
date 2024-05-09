@@ -51,6 +51,14 @@
     <script src="/assets/js/header.js"></script>
     <script src="/assets/js/login.js"></script>
     <script src="/assets/js/forum.js"></script>
-    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('id');
+        if (gameId !== null) {
+            // Aqui você pode carregar os debates específicos para o jogo com o ID correspondente
+            // Por exemplo, você pode fazer uma solicitação para um servidor ou carregar debates armazenados localmente
+            // Em seguida, exiba-os na página do fórum
+        }
+    </script>
 </body>
 </html>

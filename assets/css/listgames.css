@@ -11,6 +11,8 @@ body{
     border-radius: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    display: flex; /* Adicionado */
+    align-items: center; /* Alterado */
 }
 
 #ul1 li {
@@ -38,9 +40,10 @@ body{
 .game-info {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center; /* Alterado */
     flex-direction: column;
     width: 300px;
+    height: 145px; /* Adicionado */
 }
 
 .game-info h2 {
@@ -51,6 +54,7 @@ body{
 
 .game-info h3 {
     font-size: 0.99rem;
+    margin-top: 0; /* Adicionado para remover margem padrão */
 }
 
 .icon-remove {
