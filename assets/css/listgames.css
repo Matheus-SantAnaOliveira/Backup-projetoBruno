@@ -22,6 +22,7 @@ body{
     position: relative;
     margin-bottom: 1rem;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 #ul1 li:last-child {
@@ -97,4 +98,8 @@ footer button:hover {
     transform: scale(1.2);
     background: #000000;
     color:#ffffff;
+}
+#ul1 li:hover {
+    background: rgba(219, 199, 199, 0.8);
+    cursor: pointer;
 }

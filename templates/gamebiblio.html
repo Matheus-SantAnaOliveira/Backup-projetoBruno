@@ -90,42 +90,45 @@
     <script>
         let btnAdd = document.querySelector('#btnAdd');
 
-        let jogos  = JSON.parse(localStorage.getItem('games')) || [];
+        let jogos = JSON.parse(localStorage.getItem('games')) || [];
+
         renderGames();
-        function renderGames(){
+
+        function renderGames() {
             document.querySelector('#ul1').innerHTML = '';
             jogos.forEach((jogo, indice) => {
-                let li = document.createElement('li');
-                li.setAttribute('data-index', indice);
-                li.addEventListener('dblclick', function() {
-                    window.location.href = `forum.html?id=${indice}`; // Redireciona para a página do fórum com o ID do jogo
-                });
+                if (!jogo.deleted) {
+                    let li = document.createElement('li');
+                    li.setAttribute('data-index', jogo.id);
+                    li.addEventListener('dblclick', function() {
+                        window.location.href = `forum.html?id=${jogo.id}`; // Redireciona para a página do fórum com o ID do jogo
+                    });
 
-                li.innerHTML = `
-                    <div class="container-items" onclick="goToForum(${indice})">
-                        <div>
-                            <img src="${jogo.img}">
+                    li.innerHTML = `
+                        <div class="container-items" onclick="goToForum(${jogo.id})">
+                            <div>
+                                <img src="${jogo.img}">
+                            </div>
+                            <div class="game-info">
+                                <h2>${jogo.nome}</h2>
+                                <h3>${jogo.desc}</h3>
+                            </div>
                         </div>
-                        <div class="game-info">
-                            <h2>${jogo.nome}</h2>
-                            <h3>${jogo.desc}</h3>
-                        </div>
-                    </div>
-                    <span class="icon-remove" data-index="${indice}">
-                        <span class="material-symbols-outlined">
-                            delete
+                        <span class="icon-remove" data-index="${jogo.id}">
+                            <span class="material-symbols-outlined">
+                                delete
+                            </span>
                         </span>
-                    </span>
-                `;
-                document.querySelector('#ul1').appendChild(li);
+                    `;
+                    document.querySelector('#ul1').appendChild(li);
+                }
             });
-            if(jogos.length < 1){
+            if (jogos.filter(jogo => !jogo.deleted).length < 1) {
                 document.querySelector('#ul1').innerHTML = `
                 <div class="none-items">
                     <li>Nenhum jogo cadastrado</li>
                 </div>
                 `;
-                
             }
 
             document.querySelectorAll('.icon-remove').forEach((x) => {
@@ -134,30 +137,29 @@
             });
         }
 
-        function deletar(e){
-            if(window.confirm('Deseja realmente excluir?')){
-                let index = e.target.parentElement.getAttribute('data-index');
-                if(index){
-                    console.log(index);
-                    jogos.splice(index, 1);
+        function deletar(e) {
+            if (window.confirm('Deseja realmente excluir?')) {
+                let index = jogos.findIndex(jogo => jogo.id === parseInt(e.target.parentElement.getAttribute('data-index')));
+                if (index !== -1) {
+                    jogos[index].deleted = true; // Marca o jogo como excluído
                     localStorage.setItem('games', JSON.stringify(jogos)); // Atualiza a lista de jogos no armazenamento local
                     renderGames();
                 }
             }
         }
-       
-        function fecharModalAddJogo(){
+
+        function fecharModalAddJogo() {
             document.querySelector('[data-modal="adicionar-jogo"]').classList.remove('abrir');
             document.querySelector('.background-modal').classList.remove('abrir');
         }
+
         document.querySelectorAll('.btn-fechar-modal').forEach(btn => {
             btn.addEventListener('click', fecharModalAddJogo);
         });
+
         btnAdd.addEventListener('click', () => {
-            document.querySelector('[data-modal="adicionar-jogo"]')
-                    .classList.toggle('abrir')
-            document.querySelector('.background-modal')
-                    .classList.toggle('abrir')
+            document.querySelector('[data-modal="adicionar-jogo"]').classList.toggle('abrir');
+            document.querySelector('.background-modal').classList.toggle('abrir');
         });
 
         document.querySelector('#btnSalvar').addEventListener('click', (e) => {
@@ -165,17 +167,42 @@
             let nome = document.querySelector('#nome').value;
             let img = document.querySelector('#img').value;
             let desc = document.querySelector('#desc').value;
-            const jogo = {
-                img: document.querySelector('#img').value || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoE0zLabFrxYyaVJ-BZsuUdFNCo2iOTnGKyVFfGr_AYQ&s',
-                nome: document.querySelector('#nome').value,
-                desc: document.querySelector("#desc").value
+        
+            // Função para verificar se a URL é válida
+            function isValidURL(string) {
+                try {
+                    new URL(string);
+                } catch (_) {
+                    return false;  
+                }
+                return true;
             }
-            if (!nome || !desc){
+        
+            // Verifica se a URL é válida
+            if (img && !isValidURL(img)) {
+                // Define a imagem padrão se a URL não for válida
+                img = 'https://t4.ftcdn.net/jpg/04/42/21/53/360_F_442215355_AjiR6ogucq3vPzjFAAEfwbPXYGqYVAap.jpg';
+            } else if (!img) {
+                // Define a imagem padrão se nenhum URL for fornecido
+                img = 'https://t4.ftcdn.net/jpg/04/42/21/53/360_F_442215355_AjiR6ogucq3vPzjFAAEfwbPXYGqYVAap.jpg';
+            }
+        
+            const jogo = {
+                id: getNextUniqueId(), // Obtém o próximo ID único
+                img: img,
+                nome: nome,
+                desc: desc
+            }
+        
+            if (!nome || !desc) {
                 alert('Preencha todos os campos');
                 return;
             }
             jogos.push(jogo);
             localStorage.setItem('games', JSON.stringify(jogos)); // Salva o jogo no armazenamento local
+            // Dentro da função #btnSalvar.addEventListener('click', ...)
+            
+            localStorage.setItem('gameImage', JSON.stringify(jogo.img)); // Armazena a imagem do jogo no localStorage
             renderGames();
             fecharModalAddJogo();
             // Limpar os campos do modal após enviar
@@ -183,6 +210,13 @@
             document.querySelector('#img').value = '';
             document.querySelector('#desc').value = '';
         });
+        
+        function getNextUniqueId() {
+            if (jogos.length === 0) {
+                return 1;
+            }
+            return Math.max(...jogos.map(jogo => jogo.id)) + 1;
+        }
 
         function goToForum(index) {
             window.location.href = `forum.html?id=${index}`; // Redireciona para a página do fórum com o ID do jogo
