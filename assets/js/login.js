@@ -1,4 +1,3 @@
-// Variáveis globais
 var emailArray = JSON.parse(localStorage.getItem('emailArray')) || [];
 var passwordArray = JSON.parse(localStorage.getItem('passwordArray')) || [];
 var nameArray = JSON.parse(localStorage.getItem('nameArray')) || [];
@@ -7,7 +6,6 @@ var userEmail = localStorage.getItem('userEmail');
 var userPassword = localStorage.getItem('userPassword');
 var userName = localStorage.getItem('userName');
 
-// Elementos do DOM
 var loginBox = document.getElementById("login");
 var regBox = document.getElementById("register");
 var forgetBox = document.getElementById("forgot");
@@ -15,7 +13,6 @@ var forgetBox = document.getElementById("forgot");
 var loginTab = document.getElementById("lt");
 var regTab = document.getElementById("rt");
 
-// Função para alternar para a aba de registro
 function regTabFun() {
     event.preventDefault();
     regBox.style.visibility = "visible";
@@ -25,7 +22,6 @@ function regTabFun() {
     loginTab.style.backgroundColor = "rgba(85, 0, 163, 0.82)";
 }
 
-// Função para alternar para a aba de login
 function loginTabFun() {
     event.preventDefault();
     regBox.style.visibility = "hidden";
@@ -35,7 +31,6 @@ function loginTabFun() {
     regTab.style.backgroundColor = "rgba(85, 0, 163, 0.82)";
 }
 
-// Função para alternar para a aba de esqueci a senha
 function forTabFun() {
     event.preventDefault();
     regBox.style.visibility = "hidden";
@@ -45,7 +40,6 @@ function forTabFun() {
     regTab.style.backgroundColor = "rgba(85, 0, 163, 0.82)";
 }
 
-// Função para registro de usuário
 function register() {
     event.preventDefault();
 
@@ -54,7 +48,6 @@ function register() {
     var passwordRetype = document.getElementById("rrp").value;
     var name = document.getElementById("rn").value;
 
-    // Validações
     if (email == "" || password == "" || passwordRetype == "" || name == "") {
         alert("Todos os campos são obrigatórios.");
         return;
@@ -68,17 +61,14 @@ function register() {
         return;
     }
 
-    // Registro bem-sucedido
     emailArray.push(email);
     passwordArray.push(password);
     nameArray.push(name);
 
-    // Atualizando o localStorage
     localStorage.setItem('emailArray', JSON.stringify(emailArray));
     localStorage.setItem('passwordArray', JSON.stringify(passwordArray));
     localStorage.setItem('nameArray', JSON.stringify(nameArray));
 
-    // Atualizando o estado de login
     userLogado = true;
     userEmail = email;
     userPassword = password;
@@ -88,13 +78,11 @@ function register() {
     localStorage.setItem('userPassword', password);
     localStorage.setItem('userName', name);
 
-    // Redirecionando para a página inicial
     window.location.href = "/templates/index.html";
     atualizarHeader();
 
 }
 
-// Função de login
 function login() {
     event.preventDefault();
 
@@ -113,8 +101,6 @@ function login() {
         return;
     }
 
-
-    // Atualizando o estado de login
     userLogado = true;
     userEmail = email;
     userPassword = password;
@@ -124,24 +110,19 @@ function login() {
     localStorage.setItem('userPassword', password);
     localStorage.setItem('userName', nameArray[index]);
 
-    // Redirecionando para a página inicial
     window.location.href = "/templates/index.html";
     atualizarHeader();
 }
 
-// Função de logout
 function logout() {
-    // Limpa os dados do usuário
     userLogado = false;
     userEmail = null;
     userPassword = null;
     userName = null;
 
-    // Limpa os dados do localStorage
     localStorage.setItem('userLogado', 'false');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userPassword');
     localStorage.removeItem('userName');
-    // Redireciona para a página de login
     window.location.href = "/templates/login.html";
 }

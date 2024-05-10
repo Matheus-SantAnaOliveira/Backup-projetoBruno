@@ -10,12 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
             var author = localStorage.getItem('userName'); // Obtendo o autor do usuário logado
             var threads = JSON.parse(localStorage.getItem('threads')) || []; // Recuperando os tópicos existentes do localStorage
 
-            // Gerando um ID único para o novo tópico
             var id = threads.length + 1;
 
             var newTopic = {
                 id: id,
-                gameId: gameId, // Adicionando o ID do jogo ao novo tópico
+                gameId: gameId, 
                 title: title,
                 author: author,
                 date: Date.now(),
@@ -25,13 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 comments: []
             };
 
-            // Adicionando o novo tópico à lista de tópicos
             threads.push(newTopic);
 
-            // Salvando a lista atualizada de tópicos no localStorage
             localStorage.setItem('threads', JSON.stringify(threads));
 
-            // Redirecionando para a página do fórum após a submissão
             window.location.href = '/templates/forum.html?id=' + gameId;
         });
     } else {

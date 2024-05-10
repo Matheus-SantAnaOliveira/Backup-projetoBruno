@@ -1,27 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const gameId = urlParams.get('id');
-    const games = JSON.parse(localStorage.getItem('games')) || []; // Recupera a lista de jogos do localStorage
+    const games = JSON.parse(localStorage.getItem('games')) || []; 
 
-    // Encontra o nome do jogo com base no ID fornecido na URL
-    let gameName = "Fórum de debate"; // Por padrão, se o nome do jogo não for encontrado
+    let gameName = "Fórum de debate"; 
     for (let game of games) {
-        if (game.id == gameId) { // Verifica se o ID do jogo corresponde ao ID fornecido na URL
-            gameName = game.nome; // Atualiza o nome do jogo
+        if (game.id == gameId) { 
+            gameName = game.nome; 
             break;
         }
     }
 
-    // Atualiza o título do fórum com o nome do jogo
     document.querySelector('.top-bar h1').innerText = `Fórum: ${gameName}`;
 
-    var threads = JSON.parse(localStorage.getItem('threads')) || []; // Recuperando os tópicos existentes do localStorage
+    var threads = JSON.parse(localStorage.getItem('threads')) || []; 
     var container = document.querySelector('#threads-list');
     if (container) {
-        // O elemento foi encontrado, então podemos continuar
+
         if (gameId) {
             for (let thread of threads) {
-                if (thread.gameId === gameId) {// Corrigido para verificar igualdade de tipo flexível
+                if (thread.gameId === gameId) {
                 var html = `
                 <li class="row">    
                     <a href="/templates/thread.html?id=${thread.id}">
@@ -61,7 +59,7 @@ function getCommentCount(threadId) {
     var comments = JSON.parse(localStorage.getItem('comments')) || [];
     var count = 0;
     for (let comment of comments) {
-        if (comment.threadId == threadId) { // Corrigido para verificar igualdade de tipo flexível
+        if (comment.threadId == threadId) {
             count++;
         }
     }
@@ -72,25 +70,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const gameId = urlParams.get('id');
     const games = JSON.parse(localStorage.getItem('games')) || [];
 
-    let gameName = "Fórum de debate"; // Por padrão, se o nome do jogo não for encontrado
-    let gameImage = ""; // URL da imagem do jogo
+    let gameName = "Fórum de debate";
+    let gameImage = ""; 
     for (let game of games) {
         if (game.id == gameId) {
             gameName = game.nome;
-            gameImage = game.img; // Obtém a imagem do jogo
+            gameImage = game.img; 
             break;
         }
     }
 
     document.querySelector('.top-bar h1').innerText = `Fórum: ${gameName}`;
 
-    // Define a imagem do jogo como plano de fundo
     document.querySelector('.back-container').style.backgroundImage = `url(${gameImage})`;
     document.querySelector('.back-container').style.backgroundSize = 'cover';
     document.querySelector('.back-container').style.backgroundRepeat = 'no-repeat';
     document.querySelector('.back-container').style.backgroundAttachment = 'fixed'; // Opcional: fixa a imagem no lugar enquanto a página é rolada
     document.querySelector('.back-container').style.backgroundPosition = 'center';
-    
-    // Restante do código...
-    
+
 });
